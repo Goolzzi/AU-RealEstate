@@ -15,7 +15,7 @@
     "aurelia-plugins-google-places-autocomplete": "^2.5.0",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
-    "jquery": "^2.2.4",
+    "jquery": "3.0.0",
     "moment": "^2.17.1",
     "numeral": "^2.0.4",
     "requirejs": "^2.3.2",
