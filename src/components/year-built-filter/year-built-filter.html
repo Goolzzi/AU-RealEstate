@@ -1,0 +1,14 @@
+<template>
+    <require from="./style.css"></require>
+    <select name="minimum" id="minimum" value.bind="selectedMinYear" class.bind="selectedMinYear==minYear? 'disable-input': ''" change.delegate="changeMinYear(selectedMinYear)">
+        <option model.bind="minYear">Min</option>
+        <option repeat.for="year of minYearList" model.bind="year" style="color: black;">${year}</option>
+    </select>
+    </div>
+    <div class="dash-icon"></div>
+    <select name="maximum" id="maximum" value.bind="selectedMaxYear" class.bind="selectedMaxYear==maxYear? 'disable-input': ''" change.delegate="changeMaxYear(selectedMaxYear)">
+        <option model.bind="maxYear">Max</option>
+        <option repeat.for="year of maxYearList" model.bind="year"  style="color: black;">${year}</option>
+    </select>
+    </div>
+</template>

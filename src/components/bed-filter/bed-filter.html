@@ -1,0 +1,14 @@
+<template>
+    <require from="./style.css"></require>
+    <select name="minimum" id="minimum" value.bind="selectedMinBed" class.bind="selectedMinBed==minBeds? 'disable-input': ''" change.delegate="changeMinBed(selectedMinBed)">
+        <option model.bind="minBeds">No Min</option>
+        <option repeat.for="bed of minBedList" model.bind="bed" style="color: black;">${bed}</option>
+    </select>
+    </div>
+    <div class="dash-icon"></div>
+    <select name="maximum" id="maximum" value.bind="selectedMaxBed" class.bind="selectedMaxBed==maxBeds? 'disable-input': ''" change.delegate="changeMaxBed(selectedMaxBed)">
+        <option model.bind="maxBeds">No Max</option>
+        <option repeat.for="bed of maxBedList" model.bind="bed"  style="color: black;">${bed}</option>
+    </select>
+    </div>
+</template>

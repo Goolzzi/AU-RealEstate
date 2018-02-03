@@ -1,0 +1,12 @@
+<template>
+    <require from="./style.css"></require>
+    <div class="input-group number-spinner">
+        <span class="input-group-btn">
+            <button class="btn btn-default" data-dir="dwn" click.delegate="changeValue(false)"><span class="fa fa-minus"></span></button>
+        </span>
+        <input type="text" class="form-control text-center" value.bind="index">
+        <span class="input-group-btn">
+            <button class="btn btn-default" data-dir="up" click.delegate="changeValue(true)"><span class="fa fa-plus"></span></button>
+        </span>
+    </div>
+</template>

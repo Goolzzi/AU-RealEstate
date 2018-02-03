@@ -1,0 +1,14 @@
+<template>
+    <require from="./style.css"></require>
+    <select name="minimum" id="minimum" value.bind="selectedMinSqrt" class.bind="selectedMinSqrt==minSqrt? 'disable-input': ''" change.delegate="changeMinSqrt(selectedMinSqrt)">
+        <option model.bind="minSqrt">No Min</option>
+        <option repeat.for="sqrt of minSqrtList" model.bind="sqrt" style="color: black;">${sqrt}</option>
+    </select>
+    </div>
+    <div class="dash-icon"></div>
+    <select name="maximum" id="maximum" value.bind="selectedMaxSqrt" class.bind="selectedMaxSqrt==maxSqrt? 'disable-input': ''" change.delegate="changeMaxSqrt(selectedMaxSqrt)">
+        <option model.bind="maxSqrt">No Max</option>
+        <option repeat.for="sqrt of maxSqrtList" model.bind="sqrt" style="color: black;">${sqrt}</option>
+    </select>
+    </div>
+</template>

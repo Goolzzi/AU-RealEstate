@@ -1,0 +1,14 @@
+<template>
+    <require from="./style.css"></require>
+    <div class="dropdown-menu">
+        <select name="minimum" id="minimum" value.bind="selectedMinPrice" class.bind="selectedMinPrice==minPrice? 'disable-input': ''" change.delegate="changeMinPrice(selectedMinPrice)">
+            <option model.bind="minPrice">No Minimum</option>
+            <option repeat.for="price of minPriceList" model.bind="price" style="color: black;">${price | numberFormat: 'kmbt'}</option>
+        </select>
+        <div class="dash-icon"></div>
+        <select name="maximum" id="maximum" value.bind="selectedMaxPrice" class.bind="selectedMaxPrice==maxPrice? 'disable-input': ''" change.delegate="changeMaxPrice(selectedMaxPrice)">
+            <option model.bind="maxPrice">No Maximum</option>
+            <option repeat.for="price of maxPriceList" model.bind="price"  style="color: black;">${price | numberFormat: 'kmbt'}</option>
+        </select>
+    </div>
+</template>

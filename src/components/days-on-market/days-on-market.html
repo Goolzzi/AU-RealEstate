@@ -1,0 +1,8 @@
+<template>
+    <require from="./style.css"></require>
+    <div>
+        <select name="days_on_market" id="days_on_market" value.bind="default" change.delegate="changeDays(default)">
+            <option repeat.for="list of lists" model.bind="list.days" style="color: black;">${list.name}</option>
+        </select>
+    </div>
+</template>

@@ -1,0 +1,41 @@
+@font-face {
+    font-family: MyriadPro;
+    src: url("src/assets/fonts/Myriad-Pro-Semibold.ttf");
+}
+@font-face {
+    font-family: helvetica;
+    src: url("src/assets/fonts/helvetica-neue-bold.ttf");
+}
+body {
+    font-family: MyriadPro;
+}
+body>.navbar {
+    margin-bottom:0;
+    background-color: #206e92;
+    border-width: 0;
+}
+.navbar-nav li a{
+    color: white;
+}
+.navbar-brand {
+    background-color: #f6ac15;
+    min-width: 225px;
+    text-align: center;
+    font-size: 2em;
+    font-family: helvetica;
+    letter-spacing: 1px;
+}
+.navbar .navbar-collapse {
+    padding-right: 30px;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #13b2cf;
+}
+.search-filter-bar div.row > div {
+    padding: 0;
+}
+.btn-group > .btn.button_season {
+    border-radius: 0;
+}

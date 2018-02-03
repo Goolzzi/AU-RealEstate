@@ -1,0 +1,18 @@
+price-filter .dropdown-menu select {
+    width: 110px;
+    height: 30px;
+    outline-offset: 0px;
+    padding: 0 1rem;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+price-filter .dropdown-menu {
+    background-color: white;
+    color: black;
+    border-top: 2px #11516d solid;
+    border-bottom: 2px #13b2cf solid;
+    padding: 2rem;
+    justify-content: space-around;
+    border-radius: 0;
+    align-items: center;
+}

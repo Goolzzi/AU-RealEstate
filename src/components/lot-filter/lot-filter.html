@@ -1,0 +1,14 @@
+<template>
+    <require from="./style.css"></require>
+    <select name="minimum" id="minimum" value.bind="selectedMinLot" class.bind="selectedMinLot==minLot? 'disable-input': ''" change.delegate="changeMinLot(selectedMinLot)">
+        <option model.bind="minLot">No Min</option>
+        <option repeat.for="lot of minLotList" model.bind="lot" style="color: black;">${lot}</option>
+    </select>
+    </div>
+    <div class="dash-icon"></div>
+    <select name="maximum" id="maximum" value.bind="selectedMaxLot" class.bind="selectedMaxLot==maxLot? 'disable-input': ''" change.delegate="changeMaxLot(selectedMaxLot)">
+        <option model.bind="maxLot">No Max</option>
+        <option repeat.for="lot of maxLotList" model.bind="lot"  style="color: black;">${lot}</option>
+    </select>
+    </div>
+</template>

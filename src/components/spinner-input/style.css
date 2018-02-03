@@ -1,0 +1,14 @@
+.input-group-btn .btn.btn-default {
+    border-radius: 0;
+    background-color: #11516e;
+    color: white;
+    border: 0;
+    padding: 7px 12px;
+}
+.input-group.number-spinner {
+    width: 130px;
+}
+.input-group.number-spinner > input {
+    border-left: 0;
+    border-right: 0;
+}

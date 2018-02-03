@@ -1,0 +1,538 @@
+﻿<template>
+  <require from="components/price-filter/price-filter"></require>
+  <require from="components/bed-filter/bed-filter"></require>
+  <require from="components/sqrt-filter/sqrt-filter"></require>
+  <require from="components/lot-filter/lot-filter"></require>
+  <require from="components/year-built-filter/year-built-filter"></require>
+  <require from="components/spinner-input/spinner-input"></require>
+  <require from="components/days-on-market/days-on-market"></require>
+  <require from="components/last-updated-filter/last-updated"></require>
+  <require from="components/garage-filter/garage-filter"></require>
+  <div class="search-filter-bar">
+    <div class="row">
+      <div class="col-sm-3">
+        <!-- <aup-google-places-autocomplete value.bind="value"></aup-google-places-autocomplete> -->
+        <input type="text" id="search-place" placeholder="&#xf002; Search By City, Neighborhood, School, Address or Zip" class="place-search-filter"
+        />
+      </div>
+      <div class="col-sm-6 filter-bar">
+        <div class="dropdown">
+          <div class="dropdown-toggle dash-filter-menu" data-toggle="dropdown" role="button" aria-hidden="true" aria-expanded="false">
+          Price <span class="caret"></span></div>
+          <price-filter></price-filter>
+        </div>
+        <div class="dropdown">
+          <div class="dropdown-toggle dash-filter-menu" data-toggle="dropdown" role="button" aria-hidden="true" aria-expanded="false">
+          Property <span class="caret"></span></div>
+          <div class="dropdown-menu property-menu">
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Beds</div>
+                <bed-filter class="select-filter"></bed-filter>
+              </div>
+              <div class="section-item">
+                <div class="filter-name">Baths</div>
+                <spinner-input class="select-filter"></spinner-input>
+              </div>
+            </div>
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Square Feet</div>
+                <sqrt-filter class="select-filter" selectedMinSqrt.bind="filters.MinSqft[0]" selectedMaxSqrt.bind="filters.MaxSqft[0]"></sqrt-filter>
+              </div>
+              <div class="section-item">
+                <div class="filter-name">Lot Size</div>
+                <lot-filter class="select-filter"></lot-filter>
+              </div>
+            </div>
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">House Type</div>
+                <div class="btn-group col-xs-12 select-filter" data-toggle="buttons">
+                  <label class="btn btn-default button_season" click.trigger="clickCheckbox('Style','SFR','type_house')">
+                    <img class="filter-image" src="src/assets/image/icons/houses.png"><input type="checkbox" name="type_house" id="type_house" value="SFR">Houses
+                  </label>
+                  <label class="btn btn-default button_season" click.trigger="clickCheckbox('Style','CONDO','type_condo')">
+                    <img class="filter-image" src="src/assets/image/icons/condo.png"><input type="checkbox" name="type_condo" id="type_condo" value="CONDO">Condo
+                  </label>
+                  <label class="btn btn-default button_season" click.trigger="clickCheckbox('Style','TH','type_townhouse')">
+                    <img class="filter-image" src="src/assets/image/icons/townhouses.png"><input type="checkbox" name="type_townhouse" id="type_townhouse" value="TH">Townhouses
+                  </label>
+                  <label class="btn btn-default button_season" click.trigger="clickCheckbox('Style','V','type_lots_land')">
+                    <img class="filter-image" src="src/assets/image/icons/lotsland.png"><input type="checkbox" name="type_lots_land" id="type_lots_land" value="V">Lots/Land
+                  </label>
+                  <label class="btn btn-default button_season" click.trigger="clickCheckbox('Style','MF','type_multifamily')">
+                    <img class="filter-image" src="src/assets/image/icons/multifamily.png"><input type="checkbox" name="type_multifamily" id="type_multifamily" value="MF">Multifamily
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+                <div class="section-item">
+                  <div class="filter-name">Feature</div>
+                  <div class="btn-group col-xs-12 select-filter" data-toggle="buttons">
+                    <label class="btn btn-default button_season"  click.trigger="clickFeature('OneStory','one_story')">
+                      <img class="filter-image" src="src/assets/image/icons/storyonly.png"><input type="checkbox" name="one_story" id="one_story">1 Story Only
+                    </label>
+                    <label class="btn btn-default button_season" click.trigger="clickFeature('MustBsmnt','basement')">
+                      <img class="filter-image" src="src/assets/image/icons/basement.png"><input type="checkbox" name="basement" id="basement">Basement
+                    </label>
+                    <label class="btn btn-default button_season" click.trigger="clickFeature('SplitOK','split_entry')">
+                      <img class="filter-image" src="src/assets/image/icons/multifamily.png"><input type="checkbox" name="split_entry" id="split_entry">Split Entry
+                    </label>
+                    <label class="btn btn-default button_season" click.trigger="clickFeature('ManufOK','manufactured_home')">
+                      <img class="filter-image" src="src/assets/image/icons/manuhome.png"><input type="checkbox" name="manufactured_home" id="manufactured_home">Manufactured Home
+                    </label>
+                  </div>
+                </div>
+              </div>
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Year Built</div>
+                <year-filter class="select-filter"></year-filter>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <div class="dash-filter-menu"> Close to <span class="caret"></span></div>
+          <div class="dropdown-menu">
+
+          </div>
+        </div>
+        <div class="dropdown">
+          <div class="dash-filter-menu"> Schools <span class="caret"></span></div>
+          <div class="dropdown-menu"></div>
+        </div>
+        <div class="dropdown">
+          <div class="dash-filter-menu"> Location <span class="caret"></span></div>
+          <div class="dropdown-menu"></div>
+        </div>
+        <div class="dropdown">
+          <div class="drop-down-toggle dash-filter-menu" data-toggle="dropdown" role="button" aria-hidden="true" aria-expanded="false"> More <span class="caret"></span></div>
+          <div class="dropdown-menu more-menu">
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Listing Status</div>
+                <div class="form-group select-filter">
+                  <div>
+                    <input type="checkbox" name="fancy-checkbox-active" id="fancy_checkbox_active" checked.bind="listingStatus.active" autocomplete="off" />
+                    <div class="btn-group" click.delegate="clickCheckbox('ListingStatus', 'A', 'fancy_checkbox_active')">
+                        <label for="fancy_checkbox_active" class="btn btn-success">
+                            <span class="fa fa-check"></span>
+                            <span> </span>
+                        </label>
+                        <label for="fancy_checkbox_active" class="btn btn-default active">
+                            Active
+                        </label>
+                    </div>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="fancy-checkbox-pending" id="fancy-checkbox-pending" checked.bind="listingStatus.pending"  autocomplete="off" />
+                    <div class="btn-group" click.delegate="clickCheckbox('ListingStatus', 'P', 'fancy-checkbox-pending')">
+                        <label for="fancy-checkbox-pending" class="btn btn-warning">
+                            <span class="fa fa-check"></span>
+                            <span> </span>
+                        </label>
+                        <label for="fancy-checkbox-pending" class="btn btn-default active">
+                            Pending
+                        </label>
+                    </div>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="fancy-checkbox-danger" id="fancy-checkbox-sold" checked.bind="listingStatus.sold" autocomplete="off" />
+                    <div class="btn-group" click.delegate="clickCheckbox('ListingStatus', 'S', 'fancy-checkbox-sold')">
+                        <label for="fancy-checkbox-sold" class="btn btn-danger">
+                            <span class="fa fa-check"></span>
+                            <span> </span>
+                        </label>
+                        <label for="fancy-checkbox-sold" class="btn btn-default active">
+                            Sold
+                        </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section days-filter">
+              <div class="section-item">
+                <div class="filter-name">Days On Market</div>
+                <div class="select-filter">
+                  <days-on-market></days-on-market>
+                </div>
+              </div>
+              <div class="section-item">
+                <div class="filter-Name">Time Since Change</div>
+                <div class="select-filter">
+                  <last-updated></last-updated>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Garage</div>
+                <garage-filter class="select-filter"></garage-filter>
+              </div>
+              <div class="section-item">
+                <div class="filter-name">Covered Only</div>
+                <div class="form-group select-filter">
+                  <input type="checkbox" style="display: none;" name="fancy-checkbox-coverd" id="fancy-checkbox-coverd" autocomplete="off" />
+                  <div class="btn-group">
+                    <label for="fancy-checkbox-coverd" class="btn btn-default" click.trigger="clickCovered('GarageCvr', 'fancy-checkbox-coverd')">
+                      <span class="fa fa-check"></span>
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="section-item">
+                <div class="filter-name">Additional Amenities</div>
+                <div class="select-filter">
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">Waterfront</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-sail" id="fancy-checkbox-sail" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-sail" class="btn btn-default" click.trigger="clickCovered('Waterfront', 'fancy-checkbox-sail')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">View</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-view" id="fancy-checkbox-view" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-view" class="btn btn-default" click.trigger="clickCovered('Views', 'fancy-checkbox-view')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">A/C</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-ac" id="fancy-checkbox-ac" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-ac" class="btn btn-default" click.trigger="clickCovered('hasAC', 'fancy-checkbox-ac')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">2nd Kitchen</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-kithen" id="fancy-checkbox-kithen" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-kithen" class="btn btn-default" click.trigger="clickCovered('Kitchen2nd', 'fancy-checkbox-kithen')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">Fence</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-fence" id="fancy-checkbox-fence" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-fence" class="btn btn-default" click.trigger="clickCovered('Fence', 'fancy-checkbox-fence')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="filter-option-wrapper">
+                      <div class="icon-image"></div>
+                      <div class="icon-name">Master Bath</div>
+                      <div class="form-group" style="margin-top: 1rem;">
+                          <input type="checkbox" style="display: none;" name="fancy-checkbox-master-bath" id="fancy-checkbox-master-bath" autocomplete="off" />
+                          <div class="btn-group">
+                            <label for="fancy-checkbox-master-bath" class="btn btn-default" click.trigger="clickCovered('MasterBth', 'fancy-checkbox-master-bath')">
+                              <span class="fa fa-check"></span>
+                              <span></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3 save-bar">
+        <div class="save-search-menu pull-right"><i class="fa fa-map-marker" aria-hidden="true"></i> Save Search </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="bodyDiv">
+    <!-- <div class="row">
+ <div class="col-sm-1">
+                    Price Range<br />
+                    
+                     <div >
+
+                          <input style="width:100px" id="priceRangeSliderID" data-ui-slider=""  type="text" change.delegate="changePriceRange"  change.trigger="changePriceRange" data-slider-min="0" data-slider-max="10000000" data-slider-step="50000" data-slider-value="[${filters.MinPrice[0]},${filters.MaxPrice[0]}]" class="slider">
+                    </div>
+                </div>
+                           <div class="col-sm-1">
+                    Lot Size<br />
+                    
+                     <div >
+                          <input style="width:100px" id="lotRangeSliderID" data-ui-slider=""  type="text" change.delegate="changeLotRange"  change.trigger="changeLotRange" data-slider-min="0" data-slider-max="40000" data-slider-step="500" data-slider-value="[${filters.MinLot[0]},${filters.MaxLot[0]}]" class="slider">
+                    </div>
+                </div>
+      <div class="col-sm-2">
+        POI<br />
+        <div class="form-group">
+          <select class="form-control" name="POIsSelect" multiple size="3" change.delegate="POIchanged()">
+            <option value="">None</option>
+            <option repeat.for="poi of POIs" style="max-width: 150px" value.bind="poi.POIID">${poi.POIName} ${poi.POIDescription}</option>
+          </select>
+          <select class="form-control" style="max-width: 150px" name="POIsMaxTime" change.delegate="POIchanged()">
+            <option value="300">5 Minutes</option>
+            <option value="600">10 Minutes</option>
+            <option value="900">15 Minutes</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        Lot<br />
+        <input class="form-control" type="text" style="max-width: 110px" id="txtMinLot" change.delegate="refreshData()" value.bind="filters.MinLot[0]" />
+        <input class="form-control" type="text" style="max-width: 110px" id="txtMaxLot" change.delegate="refreshData()" value.bind="filters.MaxLot[0]" />
+      </div>
+      <div class="col-sm-1">
+        Price<br />
+        <input class="form-control" type="text" style="max-width: 110px" id="txtMinPrice" change.delegate="refreshData()" value.bind="filters.MinPrice[0]" />
+        <input class="form-control" type="text" style="max-width: 110px" id="txtMaxPrice" change.delegate="refreshData()" value.bind="filters.MaxPrice[0]" />
+      </div>
+      <div class="col-sm-1">
+        DOM<br />
+        <div data-toggle="buttons" class="btn-group">
+          <label class="btn btn-primary " click.trigger="clickRadio('DOM','1','checkDOM1')"><input id="checkDOM1" type="radio" name="options" checked="">1</label>
+          <label class="btn btn-primary" click.trigger="clickRadio('DOM','3','checkDOM1')"><input id="checkDOM3" type="radio" name="options">3</label>
+          <label class="btn btn-primary" click.trigger="clickRadio('DOM','7','checkDOM1')">
+                              <input id="checkDOM7" type="radio" name="options">7</label>
+          <label class="btn btn-primary" click.trigger="clickRadio('DOM','30','checkDOM1')"><input id="checkDOM30" type="radio" name="options">30</label>
+          <label class="btn btn-primary active" click.trigger="clickRadio('DOM','0','checkDOM1')"><input id="checkDOM0" type="radio" name="options">*</label>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        STT<br />
+        <div data-toggle="buttons" class="btn-group">
+          <label class="btn btn-primary active" click.trigger="clickRadio('STATDAYS','1','STATDAYS1')"><input id="STATDAYS1" type="radio" name="options" checked="">1</label>
+          <label class="btn btn-primary" click.trigger="clickRadio('STATDAYS','3','STATDAYS3')"><input id="STATDAYS3" type="radio" name="options">3</label>
+           <label class="btn btn-primary" click.trigger="clickRadio('DOM','7','checkDOM1')">
+                              <input id="checkDOM7" type="radio" name="options">7</label>
+          <label class="btn btn-primary" click.trigger="clickRadio('STATDAYS','30','STATDAYS30')"><input id="STATDAYS30" type="radio" name="options">30</label>
+          <label class="btn btn-primary " click.trigger="clickRadio('STATDAYS','0','STATDAYS0')"><input id="STATDAYS0" type="radio" name="options">*</label>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        Listing Status<br />
+        <div class="btn-group">
+          <div data-toggle="buttons" class="btn-group">
+            <label class="btn btn-primary active" click.trigger="clickCheckbox('ListingStatus','A','checkNew')"><input type="checkbox" id="checkNew" checked="" ><i cclass="fa fa-flash"></i>&nbsp;N</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('ListingStatus','P','checkPending')"><input type="checkbox" id="checkPending"><i cclass="fa fa-hourglass-end"></i>&nbsp;P</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('ListingStatus','S','checkSold')"><input type="checkbox" id="checkSold"><i cclass="fa fa-legal"></i>&nbsp;S</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('ListingStatus','DE','checkDelisted')"><input type="checkbox" id="checkDelisted"><i cclass="fa fa-legal"></i>&nbsp;D</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        Zoning<br />
+        <div class="btn-group">
+          <div data-toggle="buttons" class="btn-group">
+            <label class="btn btn-primary" click.trigger="clickCheckbox('Zoning','Single','checkSingle')"><input type="checkbox" id="checkSingle"><i class="fa fa-home"></i>&nbsp;&nbsp;S</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('Zoning','Multi','checkMulti')"><input type="checkbox" id="checkMulti"><i class="fa fa-building"></i>&nbsp;&nbsp;M</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('Zoning','Commercial','checkComm')"><input type="checkbox" id="checkComm"><i class="fa fa-industry"></i>&nbsp;&nbsp;C</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('MHA','Yes','checkMHA')"><input type="checkbox" id="checkMHA"><i cclass="fa fa-rocket"></i>&nbsp;&nbsp;U2</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('MHA2','Yes','checkMHA2')"><input type="checkbox" id="checkMHA2"><i cclass="fa fa-rocket"></i>&nbsp;&nbsp;U3</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        Overlay<br />
+        <div data-toggle="buttons" class="btn-group">
+          <label class="btn btn-primary" click.trigger="clickCheckbox('UV','Yes','checkUV')"><input type="checkbox" id="checkUV">UV</label>
+          <label class="btn btn-primary" click.trigger="clickCheckbox('FUV','Yes','checkFUV')"><input type="checkbox" id="checkFUV">F</label>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        Use<br />
+        <div class="btn-group">
+          <div data-toggle="buttons" class="btn-group">
+            <label class="btn btn-primary active" click.trigger="clickCheckbox('Use','SF','checkUseHouse')"><input type="checkbox" id="checkUseHouse" checked="checked" >SF</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('Use','TownHouse','checkUseTownHouse')"><input type="checkbox" id="checkUseTownHouse">TH</label>
+            <label class="btn btn-primary" click.trigger="clickCheckbox('Use','Condo','checkUseCondo')"><input type="checkbox" id="checkUseCondo">CN</label>
+            <label class="btn btn-primary active" click.trigger="clickCheckbox('Use','MF','checkUseAptBuilding')"><input type="checkbox" id="checkUseAptBuilding" checked="checked">MF</label>
+
+            <label class="btn btn-primary active" click.trigger="clickCheckbox('Use','Vacant','checkUseVacant')"><input type="checkbox" checked="checked" id="checkUseVacant">V</label>
+            <label class="btn btn-primary active" click.trigger="clickCheckbox('Use','C','checkUseCom')"><input type="checkbox"  checked="checked" id="checkUseCom">C</label>
+
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="landing-page">
+      <div class="map-view">
+        <google-map map-loaded.call="loadMapLayers(GoogleMap, $event)" view-model.ref="GoogleMap" markers.bind="mapMarkers" zoom="${zoomRate}"
+          latitude="${getLatitude}" longitude="${getLongitude}" address="Seattle, WA"></google-map>
+      </div>
+      <div class="listingView" style="box-shadow: -5px 3px 10px 0px rgba(0,0,0,0.35);">
+        <div id="listingsTableDiv" class="table-responsive">
+          <h1>Seattle, WA</h1>
+          <h5><span style="font-weight: Boiler">${listings.length} Home</span> Listings in Your Area</h5>
+          <div class="table-type">
+            <div><span>${minPrice | numberFormat: 'kmbt'} - ${maxPrice | numberFormat: 'kmbt'}</span></div>
+            <select name="sort" id="sort-item" value.bind="sortColumn" change.delegate="changeSort(sortColumn)">
+              <option value=""> Sort By </option>
+              <option value="ListingPrice"> Price </option>
+              <option value="LotSqft"> Lot </option>
+              <option value="ListingBeds"> Beds </option>
+              <option value="ListingSqft"> Sqft </option>
+            </select>
+            <div data-toggle="buttons" class="btn-group">
+              <label class="btn btn-default" click.trigger="selectViewType('list')"><input id="checkDOM1" type="radio" value="list"><i class="fa fa-th-list"></i></label>
+              <label class="btn btn-default" click.trigger="selectViewType('compact')"><input id="checkDOM3" type="radio" value="compact"><i class="fa fa-th"></i></label>
+            </div>
+          </div>
+          <table show.bind="tableType == 'list'" id="listingsTableID" class="listingsTable table table-hover">
+            <thead id="listingsTableHead">
+              <tr>
+                <th><span class="thsortable" click.trigger="changeSort('StatusHours')">Stat</span> | <span class="thsortable"
+                    click.trigger="changeSort('DOM')">DOM</span>
+                </th>
+                <th class="thsortable" click.trigger="changeSort('MLSNumber')">MLS</th>
+                <th class="thsortable" click.trigger="changeSort('Neighbourhood')">Location</th>
+                <th class="thsortable">
+                  <span class="thsortable" click.trigger="changeSort('ListingPrice')">Price</span> (
+                  <span class="thsortable" click.trigger="changeSort('PPImpSqft')">P</span>)
+                </th>
+
+                <th class="thsortable">
+                  <span click.trigger="changeSort('LotSqft')">Parcel</span> (<span class="thsortable" click.trigger="changeSort('PPLotSqft')">P</span>)
+                </th>
+                <th class="thsortable" click.trigger="changeSort('ListingSqft')">Property (<span class="thsortable" click.trigger="changeSort('YearBuilt')">Y</span> | <span class="thsortable"
+                    click.trigger="changeSort('CAP')">C</span>)
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="listingsTableBody">
+              <tr id="listingsTableRow_${listing.ListingID}" click.trigger="clickRow($event,listing.ListingID,listing.FullAddress,listing.Longitude,listing.Latitude)"
+                class="listingsTableRow" repeat.for="listing of listings | sort:sortColumn:sortOrder">
+                <td class="STATUS${listing.ListingStatus | removeSpaces}">
+                  <div class="box">
+                    <span id="listingsTableCell_ListingImage_${listing.ListingID}">
+                        <img border="1" src="${listing.PrimaryImage}" width="120"/>
+                    </span><br />
+                    <span style="color:#666666" id="listingsTableCell_DOM_${listing.ListingID}">RA: <B>${listing.StatusHours | dateFormat:'daysToHoursDays'}</B> | CDOM: <B>${listing.DOM}d</B></span>
+                    <div class="ribbon${listing.ListingStatus | removeSpaces}"><span>${listing.ListingType}</span></div>
+                  </div>
+                </td>
+
+                <!-- LOCATION -->
+                <td style="vertical-align: top;">
+                  <font size="+1"><span id="Span8">${listing.City}</span></font>
+                  | <span id="listingsTableCell_MLSNumber_${listing.ListingID}"><a click.trigger="hyperLink('http://www.coldwellbankerbain.com/'+listing.MLSNumber)" target="_MLS${listing.ListingID}"  href="">${listing.MLSNumber}</a></span>                  | <span id="listingsTableCell_TaxID_${listing.EXTID1}"><a click.trigger="hyperLink('http://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr='+listing.EXTID1)" target="_COUNTY${listing.ListingID}"  href="">C</a></span>
+                  <br />
+                  <span id="Span9">${listing.NeighbourhoodUnited}</span><br />
+                  <span id="Span10"><a target="_RA${listing.ListingID}" click.trigger="hyperLink('../../REPM/PropertySearch.aspx?Address='+listing.FullAddress)"  href="../REPM/PropertySearch.aspx?Address=${listing.FullAddress}">${listing.StreetAddress}</a></span>
+                </td>
+
+                <!-- PRICE -->
+                <td style="vertical-align: top;">
+                  <font size="+1"><span id="Span4">${listing.ListingPrice | numberFormat:'kmbt'}</span></font>
+                  <br /> ${listing.PPImpSqft | numberFormat:'($0,0)'}<small>/sqft</small><br />
+                </td>
+
+                <!-- PARCEL -->
+                <td style="vertical-align: top;">
+                  <font size="+1">
+                    <span id="listingsTableCell_SqFtLot_${listing.ListingID}">${listing.LotSqft | numberFormat:'(0,0)'}</span>
+                  </font>sqft<br/> ${listing.PPLotSqft | numberFormat:'($0,0)'}<small>/sqft</small><br />
+                  <b><span style="border:thin; border-width:1px;border-color:#CCCCCC;background-color:#F2F2F2;margin:1px;border-style:dashed;padding-left:3px;padding-right:3px"  id="Span6">${listing.CurrentZoning | removeSpaces}</span></b>
+                  <b><span class.bind="listing.ZoningFutureCSS" style="border:thin; border-width:1px;border-color:#ffc954;background-color:#ffedc5;margin:1px;border-style:dashed;padding-left:3px;padding-right:3px"  id="Span1">${listing.ZoningFuture3 | removeSpaces}</span></b>
+                  <font size="-1">
+                    <span class.bind="listing.UrbanVillageCSS"><span style="border:thin; border-width:1px;border-color:#CCCCCC;margin:1px;border-style:dashed;padding-left:3px;padding-right:3px" title="${listing.UrbanVillageCurrent | ralistings:'UVONLYDESC'}" id="Span7">
+                        ${listing.UrbanVillageCurrent | ralistings:'UVREMOVEDESC'}
+                    </span></span>
+                    <span class.bind="listing.UrbanVillageFutureCSS"><span style="border:thin; border-width:1px;border-color:#ffc954;background-color:#ffedc5;margin:1px;border-style:dashed;padding-left:3px;padding-right:3px" title="${listing.UrbanVillageFuture | ralistings:'UVONLYDESC'}" id="Span2">
+                        ${listing.UrbanVillageFuture | ralistings:'UVREMOVEDESC'}
+                    </span></span>
+                    <br />
+                    <span class.bind="listing.FrequentTransitCSS">
+                      <img width="10" src="img/walk.png" />${listing.FTDistanceToNearestStation | numberFormat:'(0,0)'}<sub>ft</sub> - <img width="12" src='http:${listing.FTVehicleIcon}' />
+                      <span style="border:thin; border-width:1px;border-color:#CCCCCC;margin:1px;border-style:solid;padding-left:0px;padding-right:3px">
+                          <a target="_ft" title="${listing.FTNearestStationName}" click.trigger="hyperLink(listing.FTNearestStationURL)">${listing.FTNearestStationLine}</a>
+                      </span>
+                    </span>
+                  </font>
+                </td>
+
+                <!-- PROPERTY -->
+                <td style="vertical-align: top;">
+                  <font size="+1">
+                    <span id="listingsTableCell_ListingSqft_${listing.ListingID}">${listing.ListingSqft | numberFormat:'(0,0)'}</span>
+                  </font>sqft<br/>
+                  <span id="Span3"><i class="fa fa-bed" aria-hidden="true"></i> ${listing.ListingBeds | numberFormat:'removezeros' }</span>|
+                  <span id="Span5"><i class="fa fa-bath" aria-hidden="true"></i> ${listing.ListingBaths| numberFormat:'removezeros' }</span><br/>
+                  <span title="${listing.PresentUseName}" id="listingsTableCell_PresentUseName_${listing.ListingID}">${listing.PresentUseGroup} ${listing.CAPTEXT}</span><br
+                  />
+                  <span title="${listing.YearBuilt}" id="listingsTableCell_YearBuilt_$">${listing.YearBuilt}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div show.bind="tableType == 'compact'" class="compact-view">
+            <div class="row">
+              <div class="col-sm-6 poi-item" click.trigger="clickRow($event,listing.ListingID,listing.FullAddress,listing.Longitude,listing.Latitude)"
+                repeat.for="listing of listings | sort:sortColumn:sortOrder">
+                <img src="${listing.PrimaryImage}" class="item-image" border="1"></img>
+                <div class="thumb-overlay">
+                  <span if.bind="listing.ListingStatus=='A'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">${listing.StatusHours | dateFormat:'daysToHoursDaysLong'} on dashReal</span>
+                  <span if.bind="listing.ListingStatus=='P'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">Pending ${listing.StatusHours | dateFormat:'daysToHoursDaysLong'}</span>
+                  <span if.bind="listing.ListingStatus=='PI'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">Pending Inspection ${listing.StatusHours | dateFormat:'daysToHoursDaysLong'}</span>
+                  <span if.bind="listing.ListingStatus=='PB'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">Pending Backup ${listing.StatusHours | dateFormat:'daysToHoursDaysLong'}</span>
+                  <span if.bind="listing.ListingStatus=='PF'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">Pending Feas. ${listing.StatusHours | dateFormat:'daysToHoursDaysLong'}</span>
+                  <span if.bind="listing.ListingStatus=='S'" class="label label-success thumb-badge thumb-badge${listing.ListingStatus | removeSpaces}">Sold ${listing.StatusHours | dateFormat:'daysToHoursDaysLong'} ago</span>
+                  <span class="rate-item"><i class="fa fa-star"></i></span>
+                  <div class="resort-info">
+                    <div class="price-location">
+                      <div class="price"><span>$</span> ${listing.ListingPrice | numberFormat: '(0,0)'}</div>
+                      <div class="address1"><span>${listing.City}, </span><span>${listing.State} </span><span>${listing.ZIP}</span></div>
+                      <div class="street-address"><span>${listing.StreetAddress}</span></div>
+                    </div>
+                    <div class="resort-room-info">
+                      <div class="column"><span class="count">${listing.ListingBeds | numberFormat: '(0,0)'}</span><span class="name">Beds</span></div>
+                      <div class="column"><span class="count">${listing.ListingBaths | numberFormat: '(0,0)' }</span><span class="name">Baths</span></div>
+                      <div class="column"><span class="count">${listing.ListingFinishedSqft | numberFormat: '(0,0)'}</span><span class="name">Sq.Ft</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
